@@ -1,11 +1,12 @@
 const FRAME_RATE = 16;
-const INIT_SPREAD_RATE = 10;
-const DECAY_RATE = 0.1; // per second
+const INIT_SPREAD_RATE = 2;
+const DECAY_RATE = 0.01; // per frame
+const MIN_RATE = 1;
 const RIPPLE_LIMIT = Infinity;
-const RIPPLE_COLOR = "magenta";
+const RIPPLE_COLOR = "gray";
 
-// const renderFrame = requestAnimationFrame;
-const renderFrame = fn => setTimeout(fn, FRAME_RATE);
+// const queueNextFrame = requestAnimationFrame;
+const queueNextFrame = fn => setTimeout(fn, FRAME_RATE);
 
 function generateColorVal() {
   return Math.floor(255 * Math.random());
@@ -22,13 +23,14 @@ class Ripple {
   constructor(x, y, color) {
     this.x = x;
     this.y = y;
-    this.radius = INIT_SPREAD_RATE;
     this.color = color;
-    // this.radius = 0;
+    this.radius = 0;
+    this.rate = INIT_SPREAD_RATE;
   }
 
   update() {
-    this.radius += INIT_SPREAD_RATE;
+    this.radius += this.rate;
+    this.rate = Math.max(this.rate - DECAY_RATE, MIN_RATE);
   }
 }
 
@@ -45,15 +47,22 @@ class CanvasRipples {
       const y = event.clientY;
 
       if (this.ripples.length < RIPPLE_LIMIT) {
-        const ripple = new Ripple(x, y, generateColor());
+        const ripple = new Ripple(x, y, RIPPLE_COLOR);
         this.ripples.push(ripple);
       }
+
+      const rates = this.ripples.map(ripple => ripple.rate);
+      console.log("rates", rates);
 
       this.play();
     });
   }
 
   play() {
+    if (this.ripples.length && this.ripples.some(ripple => ripple.radius)) {
+      this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+
     this.ripples.forEach(ripple => {
       const { x, y, radius, color } = ripple;
       this.context.strokeStyle = color;
@@ -62,7 +71,8 @@ class CanvasRipples {
       this.context.stroke();
       ripple.update();
     });
-    // renderFrame(this.play.bind(this));
+
+    queueNextFrame(this.play.bind(this));
   }
 }
 
