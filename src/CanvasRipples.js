@@ -4,7 +4,7 @@ const RIPPLE_LIMIT = Infinity;
 const queueNextFrame = requestAnimationFrame;
 
 class CanvasRipples {
-  constructor({ color, redrawCb } = {}) {
+  constructor({ color, redrawCb, lineWidth } = {}) {
     this.canvas = document.createElement("canvas");
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
@@ -13,6 +13,8 @@ class CanvasRipples {
     this.playing = false;
     this.color = color;
     this.redrawCb = redrawCb;
+
+    this.context.lineWidth = lineWidth || 2
 
     const _touchHandler = this.touchHandler.bind(this);
 
@@ -28,8 +30,6 @@ class CanvasRipples {
       const ripple = new Ripple(x, y, this.color);
       this.ripples.push(ripple);
     }
-
-    const rates = this.ripples.map(ripple => ripple.rate);
 
     if (!this.playing) {
       this.playing = true;
@@ -56,7 +56,9 @@ class CanvasRipples {
         this.redrawCb(this.context, this.canvas);
       }
       queueNextFrame(this.play.bind(this));
+      return
     }
+    this.playing = false
   }
 }
 
