@@ -4,7 +4,11 @@ const RIPPLE_LIMIT = Infinity;
 const queueNextFrame = requestAnimationFrame;
 
 class CanvasRipples {
-  constructor({ color, redrawCb, lineWidth } = {}) {
+  constructor({
+    color,
+    redrawCb,
+    lineWidth
+  } = {}) {
     this.canvas = document.createElement("canvas");
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
@@ -27,7 +31,11 @@ class CanvasRipples {
     const y = event.clientY;
 
     if (this.ripples.length < RIPPLE_LIMIT) {
-      const ripple = new Ripple(x, y, this.color);
+      const ripple = new Ripple({
+        x,
+        y,
+        color: this.color
+      });
       this.ripples.push(ripple);
     }
 
@@ -42,7 +50,12 @@ class CanvasRipples {
       this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
       this.ripples.forEach(ripple => {
-        const { x, y, radius, color } = ripple;
+        const {
+          x,
+          y,
+          radius,
+          color
+        } = ripple;
 
         this.context.strokeStyle = color;
         this.context.beginPath();
