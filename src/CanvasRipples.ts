@@ -1,6 +1,5 @@
 import Ripple from "./Ripple";
 
-const RIPPLE_LIMIT = Infinity;
 const queueNextFrame = requestAnimationFrame;
 
 function distBwTwoPoints(x1, y1, x2, y2) {
@@ -9,7 +8,7 @@ function distBwTwoPoints(x1, y1, x2, y2) {
 
 // ripple is finished whenever radius equals the longest line
 // b/w the ripple origin and either of the canvas' four corners
-function rippleFinished(ripple, canvasWidth, canvasHeight) {
+function rippleFinished(ripple: Ripple, canvasWidth, canvasHeight) {
   const radius = ripple.radius;
   const canvasMidX = canvasWidth / 2;
   const canvasMidY = canvasHeight / 2;
@@ -30,6 +29,15 @@ function rippleFinished(ripple, canvasWidth, canvasHeight) {
   );
 
   return radius > farthestDist;
+}
+
+interface CanvasRipples {
+  canvas: HTMLCanvasElement;
+  context: CanvasRenderingContext2D;
+  ripples: Array<Ripple>;
+  playing: boolean;
+  color: string;
+  redrawCb?: Function;
 }
 
 class CanvasRipples {
@@ -55,14 +63,12 @@ class CanvasRipples {
     const x = event.clientX;
     const y = event.clientY;
 
-    if (this.ripples.length < RIPPLE_LIMIT) {
-      const ripple = new Ripple({
-        x,
-        y,
-        color: this.color
-      });
-      this.ripples.push(ripple);
-    }
+    const ripple = new Ripple({
+      x,
+      y,
+      color: this.color
+    });
+    this.ripples.push(ripple);
 
     if (!this.playing) {
       this.playing = true;

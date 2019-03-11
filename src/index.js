@@ -1,4 +1,4 @@
-import CanvasRipples from "./CanvasRipples";
+import CanvasRipples from "./CanvasRipples.ts";
 
 const MAIN_COLOR = "teal";
 
@@ -21,11 +21,11 @@ function drawText(ctx) {
 }
 
 window.canvasRipples = new CanvasRipples({
-  color: MAIN_COLOR,
-  redrawCb: drawText
+  color: MAIN_COLOR
+  // redrawCb: drawText
 });
 
 initContext(canvasRipples.context);
-drawText(canvasRipples.context);
+// drawText(canvasRipples.context);
 
 document.body.appendChild(canvasRipples.canvas);

@@ -36,6 +36,16 @@ function getEdgeModifier(x, y, w, h, centerThreshold) {
   return 1
 }
 
+interface Ripple {
+  x: number
+  y: number
+  color: string
+  radius: number
+  rate: number
+  decayRate: number
+  minRate: number
+}
+
 class Ripple {
   constructor({
     x,
