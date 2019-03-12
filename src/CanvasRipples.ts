@@ -31,15 +31,6 @@ function rippleFinished(ripple: Ripple, canvasWidth, canvasHeight) {
   return radius > farthestDist;
 }
 
-interface CanvasRipples {
-  canvas: HTMLCanvasElement;
-  context: CanvasRenderingContext2D;
-  ripples: Array<Ripple>;
-  playing: boolean;
-  color: string;
-  redrawCb?: Function;
-}
-
 interface CanvasRipplesSettings {
   color: string;
   lineWidth?: number;
