@@ -40,8 +40,21 @@ interface CanvasRipples {
   redrawCb?: Function;
 }
 
+interface CanvasRipplesSettings {
+  color: string;
+  lineWidth?: number;
+  redrawCb?: Function;
+}
+
 class CanvasRipples {
-  constructor({ color, redrawCb, lineWidth } = {}) {
+  public canvas: HTMLCanvasElement;
+  public context: CanvasRenderingContext2D;
+  public ripples: Array<Ripple>;
+  public playing: boolean;
+  public color: string;
+  public redrawCb?: Function;
+
+  constructor({ color, redrawCb, lineWidth = 2 }: CanvasRipplesSettings) {
     this.canvas = document.createElement("canvas");
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
@@ -51,7 +64,7 @@ class CanvasRipples {
     this.color = color;
     this.redrawCb = redrawCb;
 
-    this.context.lineWidth = lineWidth || 2;
+    this.context.lineWidth = lineWidth;
 
     const _touchHandler = this.touchHandler.bind(this);
 
