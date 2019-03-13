@@ -1,31 +1,25 @@
+import rasterizeHTML from "rasterizehtml";
+
 import CanvasRipples from "./CanvasRipples.ts";
+import html from "./intro.html";
 
-const MAIN_COLOR = "teal";
+const MAIN_COLOR = "#ccc";
 
-function initContext(ctx) {
+function initContext(canvas, ctx) {
   ctx.font = "20px Futura";
   ctx.fillStyle = MAIN_COLOR;
 }
 
-function drawText(ctx) {
-  ctx.fillText(
-    "derek miranda",
-    window.innerWidth * 0.2,
-    window.innerHeight / 3
-  );
-  ctx.fillText(
-    "developer",
-    window.innerWidth * 0.2,
-    window.innerHeight / 3 + 30
-  );
+function drawText(canvas, ctx) {
+  rasterizeHTML.drawHTML(html, canvas);
 }
 
 window.canvasRipples = new CanvasRipples({
-  color: MAIN_COLOR
-  // redrawCb: drawText
+  color: MAIN_COLOR,
+  redrawCb: drawText
 });
 
-initContext(canvasRipples.context);
-// drawText(canvasRipples.context);
+initContext(canvasRipples.canvas, canvasRipples.context);
+drawText(canvasRipples.canvas);
 
 document.body.appendChild(canvasRipples.canvas);

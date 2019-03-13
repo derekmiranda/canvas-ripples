@@ -49,7 +49,7 @@ class CanvasRipples {
     this.canvas = document.createElement("canvas");
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
-    this.context = this.canvas.getContext("2d", { alpha: false });
+    this.context = this.canvas.getContext("2d");
     this.ripples = [];
     this.playing = false;
     this.color = color;
@@ -106,7 +106,7 @@ class CanvasRipples {
 
       // call redraw callback if any
       if (this.redrawCb) {
-        this.redrawCb(this.canvas, this.context);
+        this.redrawCb(this.context, this.canvas);
       }
       queueNextFrame(this.play.bind(this));
       return;
