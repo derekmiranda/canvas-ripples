@@ -33,8 +33,10 @@ function rippleFinished(ripple: Ripple, canvasWidth, canvasHeight) {
 
 interface CanvasRipplesSettings {
   color: string;
+  canvas?: HTMLCanvasElement;
   lineWidth?: number;
   redrawCb?: Function;
+  clickSurface?: Window | EventTarget;
 }
 
 class CanvasRipples {
@@ -44,9 +46,16 @@ class CanvasRipples {
   public playing: boolean;
   public color: string;
   public redrawCb?: Function;
+  private _clickSurface: Window | EventTarget;
 
-  constructor({ color, redrawCb, lineWidth = 2 }: CanvasRipplesSettings) {
-    this.canvas = document.createElement("canvas");
+  constructor({
+    color,
+    canvas,
+    redrawCb,
+    clickSurface = window,
+    lineWidth = 2
+  }: CanvasRipplesSettings) {
+    this.canvas = canvas || document.createElement("canvas");
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
     this.context = this.canvas.getContext("2d");
@@ -54,16 +63,23 @@ class CanvasRipples {
     this.playing = false;
     this.color = color;
     this.redrawCb = redrawCb;
+    this._clickSurface = clickSurface;
 
     this.context.lineWidth = lineWidth;
 
     const _touchHandler = this.touchHandler.bind(this);
 
-    this.canvas.addEventListener("click", _touchHandler);
-    this.canvas.addEventListener("touchend", _touchHandler);
+    this._clickSurface.addEventListener("click", _touchHandler);
+    this._clickSurface.addEventListener("touchend", _touchHandler);
+
+    // this.canvas.addEventListener("click", _touchHandler);
+    // this.canvas.addEventListener("touchend", _touchHandler);
   }
 
   touchHandler(event) {
+    // event.preventDefault();
+    event.stopPropagation();
+
     const x = event.clientX;
     const y = event.clientY;
 
@@ -83,6 +99,11 @@ class CanvasRipples {
   play() {
     if (this.ripples.length) {
       this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+      // call redraw callback if any
+      if (this.redrawCb) {
+        this.redrawCb(this.canvas, this.context);
+      }
 
       for (let i = 0; i < this.ripples.length; ) {
         const ripple = this.ripples[i];
@@ -104,10 +125,6 @@ class CanvasRipples {
         i += 1;
       }
 
-      // call redraw callback if any
-      if (this.redrawCb) {
-        this.redrawCb(this.canvas, this.context);
-      }
       queueNextFrame(this.play.bind(this));
       return;
     }

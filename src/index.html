@@ -11,11 +11,53 @@
     <style>
       * {
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        color: #555;
+        font-family: Futura, Arial, Helvetica, sans-serif;
+      }
+
+      #canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+      }
+
+      body,
+      #main {
+        height: 100vh;
+      }
+
+      #main {
+        padding: 10%;
+        display: flex;
+        min-height: 100%;
+        box-sizing: border-box;
+        /* flex-direction: column;
+        align-content: center; */
+        align-items: center;
+      }
+
+      .content {
+        height: 20%;
       }
     </style>
     <title>Canvas Ripples</title>
   </head>
   <body>
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <main id="main">
+      <p class="content">
+        DEREK MIRANDA<br />
+        <br />
+        Web Developer specializing in the front-end. I have experience with
+        building web applications, experiences and components as well as
+        building plugins for Webpack and Rollup. When I'm not coding, I enjoy
+        playing music, dancing, or losing at Smash Bros.
+        <br />
+        <br />
+        ABOUT | WORK | PROJECTS | CONTACT
+      </p>
+    </main>
     <script src="index.js"></script>
   </body>
 </html>
