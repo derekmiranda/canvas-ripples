@@ -56,16 +56,9 @@ class Ripple {
     this.color = color;
     this.radius = 0;
 
-    const edgeModifier = getEdgeModifier(
-      x,
-      y,
-      window.innerWidth,
-      window.innerHeight,
-      0.6
-    );
-    this.rate = initRate * edgeModifier;
+    this.rate = initRate;
     this.decayRate = decayRate;
-    this.minRate = minRate * edgeModifier;
+    this.minRate = minRate;
   }
 
   update() {

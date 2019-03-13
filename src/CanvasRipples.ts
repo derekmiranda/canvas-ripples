@@ -106,7 +106,7 @@ class CanvasRipples {
 
       // call redraw callback if any
       if (this.redrawCb) {
-        this.redrawCb(this.context, this.canvas);
+        this.redrawCb(this.canvas, this.context);
       }
       queueNextFrame(this.play.bind(this));
       return;

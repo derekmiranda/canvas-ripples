@@ -1,9 +1,7 @@
-import rasterizeHTML from "rasterizehtml";
-
 import CanvasRipples from "./CanvasRipples.ts";
 import html from "./intro.html";
 
-const MAIN_COLOR = "#ccc";
+const MAIN_COLOR = "#aaa";
 
 function initContext(canvas, ctx) {
   ctx.font = "20px Futura";
@@ -11,7 +9,7 @@ function initContext(canvas, ctx) {
 }
 
 function drawText(canvas, ctx) {
-  rasterizeHTML.drawHTML(html, canvas);
+  ctx.fillText("derek miranda", canvas.width / 4, canvas.height / 4);
 }
 
 window.canvasRipples = new CanvasRipples({
@@ -20,6 +18,6 @@ window.canvasRipples = new CanvasRipples({
 });
 
 initContext(canvasRipples.canvas, canvasRipples.context);
-drawText(canvasRipples.canvas);
+drawText(canvasRipples.canvas, canvasRipples.context);
 
 document.body.appendChild(canvasRipples.canvas);
