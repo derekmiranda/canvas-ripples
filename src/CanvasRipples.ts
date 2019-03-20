@@ -33,6 +33,7 @@ function rippleFinished(ripple: Ripple, canvasWidth, canvasHeight) {
 
 interface CanvasRipplesSettings {
   color: string;
+  fillColor?: string;
   canvas?: HTMLCanvasElement;
   lineWidth?: number;
   redrawCb?: Function;
@@ -45,11 +46,13 @@ class CanvasRipples {
   public ripples: Array<Ripple>;
   public playing: boolean;
   public color: string;
+  public fillColor: string;
   public redrawCb?: Function;
   private _clickSurface: Window | EventTarget;
 
   constructor({
     color,
+    fillColor = 'white',
     canvas,
     redrawCb,
     clickSurface = window,
@@ -62,6 +65,7 @@ class CanvasRipples {
     this.ripples = [];
     this.playing = false;
     this.color = color;
+    this.fillColor = fillColor;
     this.redrawCb = redrawCb;
     this._clickSurface = clickSurface;
 
