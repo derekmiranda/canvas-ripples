@@ -8,59 +8,32 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
     />
-    <style>
-      * {
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-        color: #555;
-        font-family: Futura, Arial, Helvetica, sans-serif;
-      }
-
-      #canvas {
-        position: absolute;
-        top: 0;
-        left: 0;
-        pointer-events: none;
-      }
-
-      body,
-      #main {
-        height: 100vh;
-      }
-
-      #main {
-        padding: 10%;
-        display: flex;
-        min-height: 100%;
-        box-sizing: border-box;
-        /* flex-direction: column;
-        align-content: center; */
-        align-items: center;
-      }
-
-      .content {
-        height: 20%;
-      }
-    </style>
+    <link rel="stylesheet" href="index.scss">
     <title>Canvas Ripples</title>
   </head>
   <body>
-    <canvas id="canvas" width="800" height="600"></canvas>
+    <canvas id="ripples-canvas" class="canvas-overlay" width="800" height="600"></canvas>
+    <canvas id="text-canvas" class="canvas-overlay" width="800" height="600"></canvas>
     <main id="main">
+      <p class="content">DEREK MIRANDA</p>
       <p class="content">
-        DEREK MIRANDA<br />
-        <br />
         Web Developer specializing in the front-end. I have experience with
         building web applications, experiences and components as well as
         building plugins for Webpack and Rollup. When I'm not coding, I enjoy
         playing music, dancing, or losing at Smash Bros.
-        <br />
-        <br />
+      </p>
+      <nav class="content">
         <a href="#about" class="nav__link">ABOUT</a> |
         <a href="#work" class="nav__link">WORK</a> |
         <a href="#projects" class="nav__link">PROJECTS</a> |
-        <a href="#contact" class="nav__link">CONTACT</a>
-      </p>
+        <a href="#contact" class="nav__link">CONTACT</a></p>
+      </nav>
     </main>
-    <script src="index.js"></script>
+    <!-- <div id="preloader">
+      <span id="ellipsis">...</span>
+    </div> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenLite.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/plugins/CSSPlugin.min.js"></script> -->
+    <script src="index.ts"></script>
   </body>
 </html>
