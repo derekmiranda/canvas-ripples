@@ -26,11 +26,12 @@ export class WrappedTextRenderer {
     y,
     width,
     height,
-    lineHeight
+    lineHeight = 1
   } : WrappedTextRendererOptions) {
     this.x = x
     this.y = y
     this.font = font
+    this.lineHeight = lineHeight
     this.mainCtx = mainCtx
     this._wrapCanvas = document.createElement('canvas')
     this._wrapCtx = this._wrapCanvas.getContext('2d')
@@ -46,6 +47,8 @@ export class WrappedTextRenderer {
   public render(text) {
     renderWrappedText(this._wrapCanvas, text, { font: this.font, lineHeight: this.lineHeight })
     // get image data
+    const imgData = this._wrapCtx.getImageData(0, 0, this._wrapCanvas.width, this._wrapCanvas.height)
     // write to main context
+    this.mainCtx.putImageData(imgData, this.x, this.y)
   }
 }
