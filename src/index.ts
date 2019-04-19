@@ -1,6 +1,6 @@
 import CanvasRipples from "./CanvasRipples";
-import { fitCanvas } from "./dom";
-import { renderContentToContext } from "./text-render";
+import {fitCanvas} from "./lib/dom";
+import {renderContentToContext} from "./lib/text-render";
 
 const MAIN_COLOR = "#555";
 
@@ -17,16 +17,13 @@ function bg(canvas, ctx) {
 }
 
 function main() {
-  const ripplesCanvas : HTMLCanvasElement = document.getElementById("ripples-canvas");
-  const textCanvas : HTMLCanvasElement = document.getElementById('text-canvas')
+  const ripplesCanvas = <HTMLCanvasElement>document.getElementById("ripples-canvas");
+  const textCanvas = <HTMLCanvasElement>document.getElementById('text-canvas')
 
   fitCanvas(ripplesCanvas)
   fitCanvas(textCanvas)
 
-  const canvasRipples = window.canvasRipples = new CanvasRipples({
-    color: MAIN_COLOR,
-    canvas: ripplesCanvas,
-  });
+  const canvasRipples = (<any>window).canvasRipples = new CanvasRipples({color: MAIN_COLOR, canvas: ripplesCanvas});
 
   const textContext : CanvasRenderingContext2D = textCanvas.getContext('2d')
   initTextContext(textContext);
