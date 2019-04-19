@@ -28,7 +28,6 @@ function main() {
   const textContext : CanvasRenderingContext2D = textCanvas.getContext('2d')
   initTextContext(textContext);
   renderContentToContext(textContext)
-
 }
 
 main()

@@ -42,6 +42,7 @@ export class WrappedTextRenderer {
     if (width) this._wrapCanvas.width = width
     if (height) this._wrapCanvas.height = height
     if (font) this._wrapCtx.font = font
+    this._wrapCtx.fillStyle = this.mainCtx.fillStyle
   }
 
   public render(text) {
