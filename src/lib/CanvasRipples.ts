@@ -68,19 +68,16 @@ class CanvasRipples {
     this.fillColor = fillColor;
     this.redrawCb = redrawCb;
     this._clickSurface = clickSurface;
-
     this.context.lineWidth = lineWidth;
-
-    const _touchHandler = this.touchHandler.bind(this);
-
-    this._clickSurface.addEventListener("click", _touchHandler);
-    this._clickSurface.addEventListener("touchend", _touchHandler);
-
-    // this.canvas.addEventListener("click", _touchHandler);
-    // this.canvas.addEventListener("touchend", _touchHandler);
   }
 
-  touchHandler(event) {
+  public start() {
+    const _touchHandler = this.touchHandler.bind(this);
+    this._clickSurface.addEventListener("click", _touchHandler);
+    this._clickSurface.addEventListener("touchend", _touchHandler);
+  }
+
+  private touchHandler(event) {
     // event.preventDefault();
     event.stopPropagation();
 
