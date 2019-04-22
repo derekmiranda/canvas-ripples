@@ -1,5 +1,5 @@
 import Ripple from "./Ripple";
-import { rippleFinished } from './canvas-utils'
+import { rippleFinished } from './anim-utils'
 
 const queueNextFrame = requestAnimationFrame;
 

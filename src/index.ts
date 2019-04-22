@@ -1,4 +1,4 @@
-import CanvasRipples from "./CanvasRipples";
+import CanvasRipples from "./lib/CanvasRipples";
 import {fitCanvas} from "./lib/dom";
 import {renderContentToContext} from "./lib/text-render";
 
@@ -24,6 +24,7 @@ function main() {
   fitCanvas(textCanvas)
 
   const canvasRipples = (<any>window).canvasRipples = new CanvasRipples({color: MAIN_COLOR, canvas: ripplesCanvas});
+  canvasRipples.start()
 
   const textContext : CanvasRenderingContext2D = textCanvas.getContext('2d')
   initTextContext(textContext);
