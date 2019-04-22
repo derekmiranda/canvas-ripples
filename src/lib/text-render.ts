@@ -7,8 +7,12 @@ export function renderContentToContext(ctx) : void {
     const el : HTMLElement = contentCollection[i]
     const text : string = el.innerText
     const rect : ClientRect = el.getBoundingClientRect()
-    const lineHeight : number = parseInt(getComputedStyle(el).lineHeight)
-
+    const elStyle : CSSStyleDeclaration = getComputedStyle(el);
+    // const lineHeight : number = parseInt(elStyle.lineHeight)
+    const fontSize : number = parseInt(elStyle.fontSize)
+    const fontFam : string = 'Futura'
+    const font = `${fontSize}px ${fontFam}`
+    
     let textRenderer = _contentRendererMap.get(el)
     if (!textRenderer) {
       textRenderer = new WrappedTextRenderer({
@@ -17,7 +21,7 @@ export function renderContentToContext(ctx) : void {
         width: rect.width,
         height: rect.height,
         mainCtx: ctx,
-        font: ctx.font
+        font
       })
       _contentRendererMap.set(el, textRenderer)
     }
