@@ -10,7 +10,7 @@ export function renderContentToContext(ctx) : void {
     const elStyle : CSSStyleDeclaration = getComputedStyle(el);
     // const lineHeight : number = parseInt(elStyle.lineHeight)
     const fontSize : number = parseInt(elStyle.fontSize)
-    const fontFam : string = 'Futura'
+    const fontFam : string = elStyle.fontFamily
     const font = `${fontSize}px ${fontFam}`
     
     let textRenderer = _contentRendererMap.get(el)
