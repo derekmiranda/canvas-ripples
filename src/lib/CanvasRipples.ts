@@ -50,7 +50,6 @@ class CanvasRipples {
   }
 
   private touchHandler(event) {
-    // event.preventDefault();
     event.stopPropagation();
 
     const x = event.clientX;
@@ -87,11 +86,11 @@ class CanvasRipples {
           continue;
         }
 
-        const { x, y, radius, color } = ripple;
+        const { x, y, radiusToCanvasWidth, color } = ripple;
 
         this.context.strokeStyle = color;
         this.context.beginPath();
-        this.context.arc(x, y, radius, 0, 2 * Math.PI);
+        this.context.arc(x, y, radiusToCanvasWidth * window.innerWidth, 0, 2 * Math.PI);
         this.context.stroke();
         ripple.update();
 

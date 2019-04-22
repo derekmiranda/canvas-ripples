@@ -3,10 +3,6 @@ const WINDOW_WIDTH_TO_DECAY_RATE = 0.0003;
 const WINDOW_WIDTH_TO_MIN_RATE = 0.007;
 const EDGE_MODIFIER = 1.5;
 
-let INIT_SPREAD_RATE = window.innerWidth * WINDOW_WIDTH_TO_INIT_RATE;
-let DECAY_RATE = window.innerWidth * WINDOW_WIDTH_TO_DECAY_RATE; // per frame
-let MIN_RATE = window.innerWidth * WINDOW_WIDTH_TO_MIN_RATE;
-
 // make ripples starting closer to edge move faster
 // ripples starting in center area (rectangular center section)
 // will have no modifier (i.e. 1)
@@ -38,7 +34,7 @@ class Ripple {
   public x: number;
   public y: number;
   public color: string;
-  public radius: number;
+  public radiusToCanvasWidth: number;
   public rate: number;
   public decayRate: number;
   public minRate: number;
@@ -47,14 +43,14 @@ class Ripple {
     x,
     y,
     color,
-    initRate = INIT_SPREAD_RATE,
-    decayRate = DECAY_RATE,
-    minRate = MIN_RATE
+    initRate = WINDOW_WIDTH_TO_INIT_RATE,
+    decayRate = WINDOW_WIDTH_TO_DECAY_RATE,
+    minRate = WINDOW_WIDTH_TO_MIN_RATE
   }) {
     this.x = x;
     this.y = y;
     this.color = color;
-    this.radius = 0;
+    this.radiusToCanvasWidth = 0;
 
     this.rate = initRate;
     this.decayRate = decayRate;
@@ -62,7 +58,7 @@ class Ripple {
   }
 
   update() {
-    this.radius += this.rate;
+    this.radiusToCanvasWidth += this.rate;
     this.rate = Math.max(this.rate - this.decayRate, this.minRate);
   }
 }
