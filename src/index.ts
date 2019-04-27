@@ -26,6 +26,16 @@ function main() {
   initContentTextRendering(textCtx, MAIN_COLOR);
   renderContentToContext();
 
+  // rerender on resize
+  window.addEventListener("resize", () => {
+    // TODO:
+    // * add debouncer
+    // * resize canvases
+    // * clear ripples and canvas text
+    // * make actual text fields visible again
+    // * rerender
+  });
+
   // hide text canvas
   textCtx.canvas.style.opacity = "0";
   window.addEventListener("load", () => {
