@@ -1,4 +1,4 @@
-import Ripple from './Ripple'
+import Ripple from "./Ripple";
 
 export const queueNextFrame = requestAnimationFrame.bind(window);
 
@@ -8,8 +8,12 @@ function distBwTwoPoints(x1, y1, x2, y2) {
 
 // ripple is finished whenever radius equals the longest line
 // b/w the ripple origin and either of the canvas' four corners
-export function rippleFinished(ripple: Ripple, canvasWidth: number, canvasHeight: number) {
-  const radius = ripple.radius;
+export function rippleFinished(
+  ripple: Ripple,
+  canvasWidth: number,
+  canvasHeight: number
+) {
+  const radius = ripple.radiusToCanvasWidth * canvasWidth;
   const canvasMidX = canvasWidth / 2;
   const canvasMidY = canvasHeight / 2;
 

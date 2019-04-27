@@ -1,5 +1,5 @@
 import Ripple from "./Ripple";
-import { rippleFinished } from './anim-utils'
+import { rippleFinished } from "./anim-utils";
 
 const queueNextFrame = requestAnimationFrame;
 
@@ -24,7 +24,7 @@ class CanvasRipples {
 
   constructor({
     color,
-    fillColor = 'white',
+    fillColor = "white",
     canvas,
     redrawCb,
     clickSurface = window,
@@ -57,8 +57,7 @@ class CanvasRipples {
 
     const ripple = new Ripple({
       x,
-      y,
-      color: this.color
+      y
     });
     this.ripples.push(ripple);
 
@@ -68,7 +67,11 @@ class CanvasRipples {
     }
   }
 
-  play() {
+  public addRipple(ripple: Ripple): void {
+    this.ripples.push(ripple);
+  }
+
+  public play() {
     if (this.ripples.length) {
       this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
@@ -86,11 +89,17 @@ class CanvasRipples {
           continue;
         }
 
-        const { x, y, radiusToCanvasWidth, color } = ripple;
+        const { x, y, radiusToCanvasWidth } = ripple;
 
-        this.context.strokeStyle = color;
+        this.context.strokeStyle = this.color;
         this.context.beginPath();
-        this.context.arc(x, y, radiusToCanvasWidth * window.innerWidth, 0, 2 * Math.PI);
+        this.context.arc(
+          x,
+          y,
+          radiusToCanvasWidth * window.innerWidth,
+          0,
+          2 * Math.PI
+        );
         this.context.stroke();
         ripple.update();
 

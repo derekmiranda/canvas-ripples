@@ -1,4 +1,4 @@
-const WINDOW_WIDTH_TO_INIT_RATE = 0.019;
+const WINDOW_WIDTH_TO_INIT_RATE = 0.012;
 const WINDOW_WIDTH_TO_DECAY_RATE = 0.0003;
 const WINDOW_WIDTH_TO_MIN_RATE = 0.007;
 const EDGE_MODIFIER = 1.5;
@@ -33,7 +33,6 @@ function getEdgeModifier(x, y, w, h, centerThreshold) {
 class Ripple {
   public x: number;
   public y: number;
-  public color: string;
   public radiusToCanvasWidth: number;
   public rate: number;
   public decayRate: number;
@@ -42,14 +41,12 @@ class Ripple {
   constructor({
     x,
     y,
-    color,
     initRate = WINDOW_WIDTH_TO_INIT_RATE,
     decayRate = WINDOW_WIDTH_TO_DECAY_RATE,
     minRate = WINDOW_WIDTH_TO_MIN_RATE
   }) {
     this.x = x;
     this.y = y;
-    this.color = color;
     this.radiusToCanvasWidth = 0;
 
     this.rate = initRate;
