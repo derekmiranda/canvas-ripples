@@ -52,7 +52,7 @@ function renderClippedText({
     ripplesCtx.arc(
       openingRipple.x,
       openingRipple.y,
-      openingRipple.radiusToCanvasWidth * canvas.width,
+      openingRipple.radiusToCanvasLen * Math.max(canvas.width, canvas.height),
       0,
       2 * Math.PI
     );

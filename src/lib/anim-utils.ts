@@ -13,7 +13,7 @@ export function rippleFinished(
   canvasWidth: number,
   canvasHeight: number
 ) {
-  const radius = ripple.radiusToCanvasWidth * canvasWidth;
+  const radius = ripple.radiusToCanvasLen * Math.max(canvasWidth, canvasHeight);
   const canvasMidX = canvasWidth / 2;
   const canvasMidY = canvasHeight / 2;
 

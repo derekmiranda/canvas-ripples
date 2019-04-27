@@ -1,6 +1,6 @@
-const WINDOW_WIDTH_TO_INIT_RATE = 0.012;
-const WINDOW_WIDTH_TO_DECAY_RATE = 0.0003;
-const WINDOW_WIDTH_TO_MIN_RATE = 0.007;
+const INIT_RATE = 0.012;
+const DECAY_RATE = 0.0003;
+const MIN_RATE = 0.007;
 const EDGE_MODIFIER = 1.5;
 
 // make ripples starting closer to edge move faster
@@ -33,7 +33,7 @@ function getEdgeModifier(x, y, w, h, centerThreshold) {
 class Ripple {
   public x: number;
   public y: number;
-  public radiusToCanvasWidth: number;
+  public radiusToCanvasLen: number;
   public rate: number;
   public decayRate: number;
   public minRate: number;
@@ -41,13 +41,13 @@ class Ripple {
   constructor({
     x,
     y,
-    initRate = WINDOW_WIDTH_TO_INIT_RATE,
-    decayRate = WINDOW_WIDTH_TO_DECAY_RATE,
-    minRate = WINDOW_WIDTH_TO_MIN_RATE
+    initRate = INIT_RATE,
+    decayRate = DECAY_RATE,
+    minRate = MIN_RATE
   }) {
     this.x = x;
     this.y = y;
-    this.radiusToCanvasWidth = 0;
+    this.radiusToCanvasLen = 0;
 
     this.rate = initRate;
     this.decayRate = decayRate;
@@ -55,7 +55,7 @@ class Ripple {
   }
 
   update() {
-    this.radiusToCanvasWidth += this.rate;
+    this.radiusToCanvasLen += this.rate;
     this.rate = Math.max(this.rate - this.decayRate, this.minRate);
   }
 }

@@ -89,14 +89,14 @@ class CanvasRipples {
           continue;
         }
 
-        const { x, y, radiusToCanvasWidth } = ripple;
+        const { x, y, radiusToCanvasLen } = ripple;
 
         this.context.strokeStyle = this.color;
         this.context.beginPath();
         this.context.arc(
           x,
           y,
-          radiusToCanvasWidth * window.innerWidth,
+          radiusToCanvasLen * Math.max(this.canvas.width, this.canvas.height),
           0,
           2 * Math.PI
         );
