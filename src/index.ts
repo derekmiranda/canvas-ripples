@@ -26,13 +26,24 @@ function main() {
   initContentTextRendering(textCtx, MAIN_COLOR);
   renderContentToContext();
 
-  openingRipple({
-    canvasRipples,
-    ripplesCtx: canvasRipples.context,
-    textCtx,
-    rippleColor: MAIN_COLOR
-  }).then(() => {
-    canvasRipples.start();
+  // hide text canvas
+  textCtx.canvas.style.opacity = "0";
+  window.addEventListener("load", () => {
+    openingRipple({
+      canvasRipples,
+      ripplesCtx: canvasRipples.context,
+      textCtx
+    }).then(() => {
+      const ripplesCtx = canvasRipples.context;
+      ripplesCtx.clearRect(
+        0,
+        0,
+        ripplesCtx.canvas.width,
+        ripplesCtx.canvas.height
+      );
+      canvasRipples.start();
+      textCtx.canvas.style.opacity = "1";
+    });
   });
 }
 main();

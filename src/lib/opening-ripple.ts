@@ -5,42 +5,24 @@ import { queueNextFrame, rippleFinished } from "./anim-utils";
 export default function openingRippleAnimation({
   canvasRipples,
   ripplesCtx,
-  textCtx,
-  rippleColor
+  textCtx
 }: {
   canvasRipples: CanvasRipples;
   ripplesCtx: CanvasRenderingContext2D;
   textCtx: CanvasRenderingContext2D;
-  rippleColor: string;
 }): Promise<void> {
-  // hide text canvas
-  textCtx.canvas.style.opacity = "0";
-
   const openingRipple = new Ripple({
     x: ~~(canvasRipples.canvas.width / 2),
     y: ~~(canvasRipples.canvas.height / 2)
   });
 
-  return (
-    new Promise(resolve =>
-      renderClippedText({
-        openingRipple,
-        ripplesCtx,
-        textCanvas: textCtx.canvas,
-        onComplete: resolve
-      })
-    )
-      // switch text rendering to text canvas
-      .then(() => {
-        console.log("opening over");
-        textCtx.canvas.style.opacity = "1";
-        ripplesCtx.clearRect(
-          0,
-          0,
-          ripplesCtx.canvas.width,
-          ripplesCtx.canvas.height
-        );
-      })
+  return new Promise(resolve =>
+    renderClippedText({
+      openingRipple,
+      ripplesCtx,
+      textCanvas: textCtx.canvas,
+      onComplete: resolve
+    })
   );
 }
 
